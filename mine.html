@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mine 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* Smooth scroll */
+html{
+  scroll-behavior:smooth;
+}
+
+/* Fade animation */
+.fade{
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.8s ease;
+}
+.fade.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Glass */
+.glass{
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(14px);
+  border-radius:20px;
+  padding:20px;
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.7)),
+  url('https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf') center/cover;
+}
+
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:28px;
+  margin-bottom:20px;
+}
+
+.profile{
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #e6b7a3;
+  box-shadow:0 0 40px rgba(230,183,163,0.8);
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{box-shadow:0 0 20px rgba(230,183,163,0.5);}
+  to{box-shadow:0 0 50px rgba(230,183,163,1);}
+}
+
+/* SECTION */
+.section{
+  padding:40px 20px;
+}
+
+/* DASHBOARD */
+.dashboard{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.card h2{
+  font-family:'Playfair Display',serif;
+  margin-bottom:10px;
+}
+
+/* Healing Button */
+.heal-btn{
+  margin-top:20px;
+  padding:12px 18px;
+  border:none;
+  border-radius:30px;
+  background:#e6b7a3;
+  color:#000;
+  font-weight:500;
+  cursor:pointer;
+  transition:0.3s;
+}
+.heal-btn:hover{
+  transform:scale(1.05);
+}
+
+.heal-text{
+  margin-top:15px;
+  color:#e6b7a3;
+  animation:fadeIn 1s;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* GATE */
+.gate-container{
+  position:relative;
+  height:250px;
+  margin-top:20px;
+}
+
+.gate{
+  position:absolute;
+  font-size:50px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.message{
+  text-align:center;
+  margin-top:20px;
+  color:#e6b7a3;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  font-size:14px;
+}
+
+.heart{
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.3);}
+}
+
+/* Desktop */
+@media(min-width:768px){
+  .dashboard{
+    flex-direction:row;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero fade">
+  <h1>Day 4: The Beginning of Our Forever</h1>
+  <img src="/mnt/data/IMG_20260427_135221_492.jpg" class="profile">
+</section>
+
+<!-- DASHBOARD -->
+<section class="section">
+  <div class="dashboard">
+
+    <div class="glass card fade">
+      <h2>🏀 The Warrior</h2>
+      <p><b>National Champion</b></p>
+      <p>Rest that ankle, Champ. Even a warrior needs a break. I’m here to be your support.</p>
+    </div>
+
+    <div class="glass card fade">
+      <h2>⚡ The Chaos Manager</h2>
+      <p>School → Basketball → PW → Parents</p>
+      <p>Amidst all this chaos, thank you for finding a home in me.</p>
+    </div>
+
+    <div class="glass card fade">
+      <h2>🔒 The Safe Harbor</h2>
+      <p>No rush, no pressure. Your past is a closed chapter.</p>
+      <p>This is our secret, safe world until you’re ready.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- HEAL -->
+<section class="section" style="text-align:center;">
+  <button class="heal-btn" onclick="heal()">💙 Send Healing</button>
+  <p id="healText" class="heal-text"></p>
+</section>
+
+<!-- GATE -->
+<section class="section">
+  <h2 style="text-align:center;font-family:Playfair Display;">Exit from my heart</h2>
+
+  <div class="gate-container" id="container">
+    <div class="gate" id="gate">🚪</div>
+  </div>
+
+  <p class="message" id="msg"></p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="heart">❤️</div>
+  Love, 4 Days Strong & Counting.
+</footer>
+
+<script>
+
+/* Fade on scroll */
+const fades=document.querySelectorAll('.fade');
+
+window.addEventListener('scroll',()=>{
+  fades.forEach(el=>{
+    const top=el.getBoundingClientRect().top;
+    if(top<window.innerHeight-50){
+      el.classList.add('show');
+    }
+  });
+});
+
+/* Healing */
+function heal(){
+  const text=document.getElementById("healText");
+  text.innerText="Sending healing vibes to your ankle... 💙✨";
+}
+
+/* Gate Logic */
+const gate=document.getElementById("gate");
+const container=document.getElementById("container");
+const msg=document.getElementById("msg");
+
+const messages=[
+"Mera dil koi ground nahi hai jahan se tum out ho jao.",
+"Ankle pain mein itna bhagna theek nahi, yahin ruk jao na?",
+"Is dil ki registry tumhare naam permanent ho chuki hai.",
+"Gate to bas dikhava hai, rasta sirf andar ki taraf aata hai.",
+"National Champion ho, par mere dil ki boundary cross karna mushkil hai.",
+"Jitni baar click karogi, utni baar meri mohabbat refresh hogi.",
+"Parents ki dant se yahan panaah milegi, exit nahi.",
+"Shortcut dhoondna band karo, tum fans chuki ho mujhme!",
+"Mine, tumhari jagah yahin hai. Always."
+];
+
+gate.addEventListener("click",()=>{
+  const x=Math.random()*(container.clientWidth-60);
+  const y=Math.random()*(container.clientHeight-60);
+
+  gate.style.left=x+"px";
+  gate.style.top=y+"px";
+
+  msg.innerText=messages[Math.floor(Math.random()*messages.length)];
+});
+
+</script>
+
+</body>
+</html>
